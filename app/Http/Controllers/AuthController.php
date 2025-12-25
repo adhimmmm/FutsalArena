@@ -64,6 +64,9 @@ class AuthController extends Controller
 
 
         return $this->CekLogin();
+
+    // $token = auth()->guard('api')->attempt($credentials);
+    // return response()->json(['original_jwt' => $token]);
     }
 
     public function CekLogin()

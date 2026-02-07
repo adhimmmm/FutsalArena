@@ -12,7 +12,6 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        /* Sembunyikan scrollbar pada filter horizontal mobile */
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }

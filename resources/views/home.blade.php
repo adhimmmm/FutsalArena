@@ -8,20 +8,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 100px;
-        }
+        html, body {
+        scroll-behavior: smooth;
+        scroll-padding-top: 100px;
+        /* Kunci layar agar tidak bisa geser kanan */
+        max-width: 100%;
+        overflow-x: hidden;
+        position: relative;
+    }
 
-        /* Custom scrollbar untuk filter horizontal di mobile */
-        .filter-container::-webkit-scrollbar {
-            display: none;
-        }
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
 
-        .filter-container {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+    .filter-container::-webkit-scrollbar { display: none; }
+    .filter-container { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 
@@ -87,70 +88,56 @@
         </div>
     </nav>
 
-    <section class="pt-24 px-4 md:px-6 relative">
-        <div class="max-w-7xl mx-auto relative">
-            <div
-                class="relative bg-gradient-to-r from-cyan-400 to-blue-500 rounded-[2rem] shadow-xl min-h-[450px] md:min-h-[550px] flex items-center justify-center p-6 md:p-12">
-                <div class="absolute inset-0 rounded-[2rem] overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1400&h=600&fit=crop"
-                        alt="Lapangan Futsal" class="w-full h-full object-cover mix-blend-overlay opacity-50">
-                </div>
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-20">
+    <div class="absolute inset-0 z-0 opacity-40" style="background-image: radial-gradient(#e5e7eb 1.5px, transparent 1.5px); background-size: 30px 30px;"></div>
 
-                <div class="relative z-10 text-center max-w-4xl mx-auto mb-16 md:mb-24">
-                    <h1 class="text-3xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                        Jelajahi Dunia Futsal<br class="hidden md:block">dan Nikmati Pertandingannya
-                    </h1>
-                    <p class="text-white text-sm md:text-xl opacity-90 max-w-2xl mx-auto">
-                        Temukan dan tuliskan pengalaman bertandingmu di berbagai lapangan terbaik.
-                    </p>
-                </div>
-
-                <div
-                    class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[90%] lg:w-full max-w-5xl z-20">
-                    <div data-aos="fade-up"
-                        class="bg-white rounded-[1.5rem] md:rounded-[2.5rem] p-5 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-gray-100">
-                        <div
-                            class="flex items-center justify-center gap-6 md:gap-10 mb-6 md:mb-8 border-b border-gray-100 relative">
-                            <button
-                                class="pb-4 text-cyan-500 font-bold border-b-2 border-cyan-500 text-xs md:text-base whitespace-nowrap uppercase tracking-widest">
-                                Cari Jadwal Lapangan
-                            </button>
-                        </div>
-
-                        <form action="#"
-                            class="flex flex-col md:flex-row items-stretch md:items-end gap-4 md:gap-6 max-w-3xl mx-auto">
-                            <div class="space-y-2 flex-grow text-left">
-                                <label
-                                    class="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest ml-1">
-                                    Pilih Tanggal Main
-                                </label>
-                                <div
-                                    class="flex items-center gap-3 bg-gray-50 p-3 md:p-4 rounded-2xl border border-transparent focus-within:border-cyan-200 transition-all">
-                                    <input type="date"
-                                        class="bg-transparent w-full focus:outline-none text-gray-800 font-bold text-sm cursor-pointer">
-                                </div>
-                            </div>
-
-                            <div class="w-full md:w-auto">
-                                <a href="#jelajahi_lapangan"
-                                    class="bg-cyan-500 hover:bg-cyan-600 text-white px-8 rounded-2xl shadow-xl shadow-cyan-100 transition-all flex items-center justify-center h-[52px] md:h-[60px] w-full md:min-w-[200px] group">
-                                    <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                    <span class="ml-2 font-black text-xs md:text-sm uppercase tracking-widest">Cari
-                                        Lapangan</span>
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="container mx-auto px-4 relative z-10 text-center">
+        <div class="inline-flex items-center gap-2 bg-indigo-50 text-cyan-500 px-4 py-1.5 rounded-full mb-8 border border-indigo-100 shadow-sm">
+            <span class="w-2 h-2 bg-cyan-600 rounded-full animate-ping"></span>
+            <span class="text-xs font-bold uppercase tracking-wider">Platform Booking Futsal #1 di Indonesia</span>
         </div>
-    </section>
 
-    <div class="h-40 md:h-56"></div>
+        <h1 class="text-4xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6">
+            Jelajahi Dunia Futsal yang <br> 
+            <span class="relative inline-block text-cyan-500">
+                Menambah Semangat
+                <svg class="absolute -bottom-2 left-0 w-full h-3 text-yellow-400" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="4" fill="transparent" stroke-linecap="round"/>
+                </svg>
+            </span>
+        </h1>
+
+        <p class="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+            Platform all-in-one untuk booking lapangan, cari lawan tanding, dan ikut turnamen terbaik. 
+            Dengan proses instan, pembayaran aman, dan lapangan berkualitas.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+            <a href="{{ route('fields.explore') }}" class="group relative px-8 py-4 bg-cyan-500 text-white rounded-full font-bold text-lg shadow-[0_15px_30px_-10px_rgba(30,27,75,0.5)] hover:scale-105 transition-all">
+                Mulai Booking Sekarang
+            </a>
+            <a href="#jelajahi_lapangan" class="flex items-center gap-2 px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-full font-bold text-lg hover:bg-slate-50 transition-all">
+                Lihat Daftar Lapangan
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
+        </div>
+
+        <div class="flex flex-col items-center gap-2">
+            <div class="flex gap-1 text-yellow-400">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="text-slate-400 text-sm font-semibold">Dipercaya oleh <span class="text-slate-900">10,000+ pemain futsal</span> di seluruh Indonesia</p>
+        </div>
+    </div>
+</section>
+
+    <!-- <div class="h-40 md:h-56"></div> -->
 
     <section class="py-16 px-4 md:px-6">
         <div class="max-w-7xl mx-auto">

@@ -49,7 +49,7 @@
         @endif
     </form>
 
-    <button onclick="openModal('modal-tambah-order')" class="bg-cyan-500 text-white px-8 py-4 rounded-[2rem] font-black text-sm hover:bg-cyan-600 shadow-lg shadow-cyan-100 transition-all flex items-center justify-center gap-3">
+    <button onclick="openModal('modal-tambah-order')" class="bg-cyan-500 text-white px-8 py-4 rounded-[2rem] font-black text-sm hover:bg-cyan-600 shadow-lg shadow-cyan-100 transition-all flex items-center justify-center gap-3 w-1/5">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Input Manual
     </button>
@@ -144,96 +144,202 @@
     </div>
     <div class="p-8 border-t border-gray-50">{{ $orders->links() }}</div>
 </div>
+<div id="modal-tambah-order" class="fixed inset-0 z-[999] hidden flex items-center justify-center p-4">
+    <div class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-tambah-order')"></div>
 
-<div id="modal-tambah-order" class="fixed inset-0 z-[99] hidden flex items-center justify-center p-4">
-    <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-md" onclick="closeModal('modal-tambah-order')"></div>
-    <div class="relative bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden transform transition-all">
-        <div class="p-10">
-            <h3 class="text-2xl font-black text-gray-900 mb-6 tracking-tight">Input Pesanan Manual</h3>
-            <form action="{{ route('admin.orders.store') }}" method="POST" class="grid grid-cols-2 gap-5">
-    @csrf
-    <div class="col-span-1">
-        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block px-1">Nama Pelanggan</label>
-        <input type="text" name="nama_pelanggan" placeholder="Nama Tamu..." required 
-               class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-none font-semibold outline-none focus:ring-2 focus:ring-cyan-500/20">
-    </div>
+    <div class="relative bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-hidden transform transition-all border border-gray-100">
+        <div class="absolute top-0 left-0 w-full h-2"></div>
 
-    <div class="col-span-1">
-        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block px-1">Nomor HP</label>
-        <input type="number" name="no_hp" placeholder="0812xxxxxxxx" required 
-               class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-none font-semibold outline-none focus:ring-2 focus:ring-cyan-500/20">
-    </div>
+        <div class="p-8 md:p-10">
+            <div class="flex justify-between items-start mb-8">
+                <div>
+                    <h3 class="text-2xl font-black text-gray-900 tracking-tight leading-none mb-2">Input Pesanan Manual</h3>
+                    <p class="text-xs text-gray-400 font-bold uppercase tracking-widest italic">Booking Langsung Admin</p>
+                </div>
+                <button onclick="closeModal('modal-tambah-order')"
+                    class="p-2 bg-red-50 text-red-400 hover:bg-red-500 hover:text-white rounded-xl transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 18L18 6M6 6l12 12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
 
-    <div class="col-span-2">
-        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block px-1">Pilih Lapangan</label>
-        <select name="field_id" required class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-none font-semibold outline-none focus:ring-2 focus:ring-cyan-500/20">
-            @foreach($fields as $field)
-                <option value="{{ $field->id }}">{{ $field->nama_lapangan }} (Rp {{ number_format($field->harga_per_jam) }}/jam)</option>
-            @endforeach
-        </select>
-    </div>
+            <form action="{{ route('admin.orders.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @csrf
+                
+                <div class="col-span-1 space-y-2">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-1">Nama Pelanggan</label>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-300 group-focus-within:text-emerald-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <input type="text" name="nama_pelanggan" placeholder="Nama Tamu..." required 
+                            class="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all font-bold text-gray-700 placeholder:text-gray-300">
+                    </div>
+                </div>
 
-    <div>
-        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block px-1">Tanggal</label>
-        <input type="date" name="tanggal_main" required class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-none font-semibold outline-none focus:ring-2 focus:ring-cyan-500/20">
-    </div>
-    <div>
-        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block px-1">Metode Bayar</label>
-        <select name="metode_bayar" class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-none font-semibold outline-none focus:ring-2 focus:ring-cyan-500/20">
-            <option value="Cash">Cash (Ditempat)</option>
-            <option value="Transfer">Transfer</option>
-        </select>
-    </div>
+                <div class="col-span-1 space-y-2">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-1">Nomor HP (WhatsApp)</label>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-300 group-focus-within:text-emerald-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <input type="number" name="no_hp" placeholder="0812..." required 
+                            class="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all font-bold text-gray-700 placeholder:text-gray-300">
+                    </div>
+                </div>
 
-    <div>
-        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block px-1">Jam Mulai</label>
-        <input type="time" name="jam_mulai" required class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-none font-semibold outline-none focus:ring-2 focus:ring-cyan-500/20">
-    </div>
-    <div>
-        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block px-1">Jam Selesai</label>
-        <input type="time" name="jam_selesai" required class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-none font-semibold outline-none focus:ring-2 focus:ring-cyan-500/20">
-    </div>
+                <div class="col-span-2 space-y-2">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-1">Pilih Lapangan</label>
+                    <div class="relative">
+                        <select name="field_id" required class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white outline-none font-bold text-gray-700 appearance-none transition-all cursor-pointer">
+                            @foreach($fields as $field)
+                                <option value="{{ $field->id }}">{{ $field->nama_lapangan }} — Rp {{ number_format($field->harga_per_jam) }}/jam</option>
+                            @endforeach
+                        </select>
+                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="col-span-2 flex gap-4 pt-4">
-        <button type="button" onclick="closeModal('modal-tambah-order')" class="flex-1 py-4 text-gray-400 font-bold hover:text-gray-900 transition-colors">Batal</button>
-        <button type="submit" class="flex-2 py-4 bg-gray-900 text-white rounded-2xl font-black shadow-xl hover:bg-gray-800 transition-all">Input Pesanan</button>
-    </div>
-</form>
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-1">Tanggal Main</label>
+                    <div class="relative group">
+                        <input type="date" name="tanggal_main" required 
+                            class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white outline-none font-bold text-gray-700 cursor-pointer transition-all">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-1">Metode Bayar</label>
+                    <div class="relative">
+                        <select name="metode_bayar" class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white outline-none font-bold text-gray-700 appearance-none transition-all cursor-pointer">
+                            <option value="Cash">Cash (Ditempat)</option>
+                            <option value="Transfer">Transfer</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-1">Jam Mulai</label>
+                    <div class="relative group">
+                        <input type="time" name="jam_mulai" required 
+                            class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white outline-none font-black text-gray-700 transition-all">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-1">Jam Selesai</label>
+                    <div class="relative group">
+                        <input type="time" name="jam_selesai" required 
+                            class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white outline-none font-black text-gray-700 transition-all">
+                    </div>
+                </div>
+
+                <div class="col-span-1 md:col-span-2 flex flex-col md:flex-row gap-4 pt-4">
+                    <button type="button" onclick="closeModal('modal-tambah-order')" 
+                        class="order-2 md:order-1 flex-1 py-4 bg-gray-900 text-white rounded-[1.5rem] font-black shadow-xl shadow-gray-200 hover:bg-red-500 transition-colors uppercase text-xs tracking-[0.2em]">Batal</button>
+                    <button type="submit" 
+                        class="order-1 md:order-2 flex-[2] py-4 bg-gray-900 text-white rounded-2xl font-black shadow-xl shadow-gray-200 hover:bg-cyan-500 hover:shadow-cyan-200 transition-all duration-300 uppercase text-xs tracking-[0.3em]">
+                        Input Pesanan
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<div id="modal-edit-order" class="fixed inset-0 z-[99] hidden flex items-center justify-center p-4">
-    <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-md" onclick="closeModal('modal-edit-order')"></div>
-    <div class="relative bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden transform transition-all">
-        <div class="p-10">
-            <h3 class="text-2xl font-black text-gray-900 mb-6 tracking-tight">Update Pesanan</h3>
+<div id="modal-edit-order" class="fixed inset-0 z-[999] hidden flex items-center justify-center p-4">
+    <div class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-edit-order')"></div>
+
+    <div class="relative bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden transform transition-all border border-gray-100">
+        <div class="absolute top-0 left-0 w-full h-2"></div>
+
+        <div class="p-8 md:p-10">
+            <div class="flex justify-between items-start mb-8">
+                <div>
+                    <h3 class="text-2xl font-black text-gray-900 tracking-tight leading-none mb-2">Update Pesanan</h3>
+                    <p class="text-xs text-gray-400 font-bold uppercase tracking-widest italic">Kelola Status & Pembayaran</p>
+                </div>
+                <button onclick="closeModal('modal-edit-order')"
+                    class="p-2 bg-red-50 text-red-400 hover:bg-red-500 hover:text-white rounded-xl transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 18L18 6M6 6l12 12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+
             <form id="form-edit-order" method="POST" class="space-y-6">
-                @csrf @method('PUT')
-                <div class="bg-gray-50 rounded-2xl p-4 flex justify-between items-center border border-gray-100">
-                    <div><p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total</p><p id="edit-total" class="font-black text-cyan-600 text-lg"></p></div>
-                    <div class="text-right"><p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Metode</p><p id="edit-metode" class="font-bold text-gray-800"></p></div>
-                </div>
-                <div class="space-y-4">
-                    <div>
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block px-1">Status Reservasi</label>
-                        <select name="status" id="edit-status-booking" class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-none font-bold text-gray-700 outline-none focus:ring-2 focus:ring-cyan-500/20">
-                            <option value="pending">Pending</option>
-                            <option value="confirmed">Confirmed</option>
-                            <option value="cancelled">Cancelled</option>
-                        </select>
+                @csrf 
+                @method('PUT')
+
+                <div class="bg-gray-50 rounded-[2rem] p-6 flex justify-between items-center border border-gray-100 shadow-inner">
+                    <div class="space-y-1">
+                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Total Tagihan</p>
+                        <p id="edit-total" class="font-black text-cyan-600 text-xl tracking-tight"></p>
                     </div>
-                    <div>
-                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block px-1">Pembayaran</label>
-                        <select name="status_pembayaran" id="edit-status-pembayaran" class="w-full px-5 py-4 rounded-2xl bg-gray-50 border-none font-bold text-gray-700 outline-none focus:ring-2 focus:ring-cyan-500/20">
-                            <option value="unpaid">Unpaid</option>
-                            <option value="paid">Paid (Lunas)</option>
-                        </select>
+                    <div class="text-right space-y-1">
+                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Metode Bayar</p>
+                        <p id="edit-metode" class="font-bold text-gray-800 bg-white px-3 py-1 rounded-lg border border-gray-100 inline-block"></p>
                     </div>
                 </div>
-                <div class="flex gap-4 pt-4">
-                    <button type="button" onclick="closeModal('modal-edit-order')" class="flex-1 py-4 text-gray-400 font-bold">Tutup</button>
-                    <button type="submit" class="flex-[2] py-4 bg-gray-900 text-white rounded-2xl font-black shadow-xl">Simpan</button>
+
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-1">Status Reservasi</label>
+                        <div class="relative group">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg class="w-5 h-5 text-gray-300 group-focus-within:text-orange-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <select name="status" id="edit-status-booking" 
+                                class="w-full pl-12 pr-10 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-orange-500 focus:bg-white outline-none font-bold text-gray-700 appearance-none transition-all">
+                                <option value="pending">🟡 Pending (Menunggu)</option>
+                                <option value="confirmed">🟢 Confirmed (Disetujui)</option>
+                                <option value="cancelled">🔴 Cancelled (Dibatalkan)</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] px-1">Status Pembayaran</label>
+                        <div class="relative group">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg class="w-5 h-5 text-gray-300 group-focus-within:text-emerald-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <select name="status_pembayaran" id="edit-status-pembayaran" 
+                                class="w-full pl-12 pr-10 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white outline-none font-bold text-gray-700 appearance-none transition-all">
+                                <option value="unpaid">❌ Unpaid (Belum Bayar)</option>
+                                <option value="paid">✅ Paid (Lunas)</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 pt-4">
+                    <button type="button" onclick="closeModal('modal-edit-order')" 
+                        class="order-2 md:order-1 flex-1 py-4 bg-gray-900 text-white rounded-[1.5rem] font-black shadow-xl shadow-gray-200 hover:bg-red-500 transition-colors uppercase text-xs tracking-[0.2em]">Batal</button>
+                    <button type="submit" 
+                        class="order-1 md:order-2 flex-[2] py-4 bg-gray-900 text-white rounded-2xl font-black shadow-xl shadow-gray-200 hover:bg-cyan-500 hover:shadow-cyan-200 transition-all duration-300 uppercase text-xs tracking-[0.3em]">
+                        Simpan Perubahan
+                    </button>
                 </div>
             </form>
         </div>
@@ -245,9 +351,12 @@
     <div class="relative bg-white w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden transform transition-all">
         <div class="p-8 border-b border-gray-50 flex justify-between items-center bg-white">
             <h3 class="text-xl font-black text-gray-900 tracking-tight">Rincian Reservasi</h3>
-            <button onclick="closeModal('modal-detail-order')" class="text-gray-400 hover:text-red-500 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-width="2.5"/></svg>
-            </button>
+            <button onclick="closeModal('modal-detail-order')"
+                    class="p-2 bg-red-50 text-red-400 hover:bg-red-500 hover:text-white rounded-xl transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M6 18L18 6M6 6l12 12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
         </div>
         
         <div class="p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">

@@ -290,7 +290,21 @@
                                 </select>
                             </div>
 
-                            <div id="bukti_transfer_container" class="hidden animate-pulse">
+                            <div id="no_rek_container" class="hidden">
+                                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">No Rekening</label>
+                                    <div class="space-y-4">
+                                        <div class=" flex flex-wrap justify-between items-center bg-gray-50 rounded-2xl px-6">
+                                            <img class="w-16 h-16" src="{{ asset('img/bank/bni.svg') }}" alt="BNI">
+                                            <h3 class="font-bold tracking-wide">1234567890</h3>
+                                        </div>
+                                        <div class=" flex flex-wrap justify-between items-center bg-gray-50 rounded-2xl px-6">
+                                            <img class="w-16 h-16" src="{{ asset('img/bank/bca.svg') }}" alt="BCA">
+                                            <h3 class="font-bold tracking-wide">1234567890</h3>
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <div id="bukti_transfer_container" class="hidden">
                                 <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4">Bukti
                                     Transfer</label>
                                 <div class="relative mt-1">
@@ -404,6 +418,7 @@
         const hargaPerJam = {{ $field->harga_per_jam }};
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        const noRek = document.getElementById('no_rek_container')
 
         // Toggle Mobile Menu
         menuBtn.addEventListener('click', () => {
@@ -414,8 +429,10 @@
         metodeBayar.addEventListener('change', function () {
             if (this.value === 'Transfer') {
                 buktiContainer.classList.remove('hidden');
+                noRek.classList.remove('hidden');
             } else {
                 buktiContainer.classList.add('hidden');
+                noRek.classList.add('hidden');
             }
         });
 

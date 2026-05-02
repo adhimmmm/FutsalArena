@@ -161,9 +161,8 @@ class AdminController extends Controller
 
     public function deleteOrder($id)
     {
-        $booking = \App\Models\Booking::findOrFail($id);
-        $booking->delete(); // Karena pakai onDelete('cascade'), payment terkait otomatis terhapus
-
+        $booking = Booking::findOrFail($id);
+        $booking->delete(); 
         return back()->with('success', 'Pesanan berhasil dihapus dari sistem.');
     }
 
